@@ -14,7 +14,8 @@ namespace ProjectsStory.Controllers
         // GET: Account
         public ActionResult Register()
         {
-            return View();
+            User u = new User() { Email = "admin@admin.admin", Name = "Admin", Surname = "Admin", Nick = "Admin" };
+            return View(u);
         }
 
         [HttpPost]
@@ -23,7 +24,7 @@ namespace ProjectsStory.Controllers
         {
             user.Avatar = "Default.png";
             //Hashing password
-            string pass = Crypto.SHA256(user.Password);
+            string pass = Crypto.HashPassword(user.Password);
             user.Password = pass;
 
             if(context.Users.FirstOrDefault(v => v.Email.ToLower() == user.Email.ToLower()) == null)
@@ -32,10 +33,6 @@ namespace ProjectsStory.Controllers
 
                 try
                 {
-                    //User urr = context.Users.FirstOrDefault(v => v.Email.ToLower() == "mzawiski97@gmail.com");
-                    //Hashing password
-                    //string passs = Crypto.SHA256(urr.Password);
-                    //urr.Password = passs;
                     context.SaveChanges();
                 }
                 catch(NullReferenceException ex)
@@ -44,7 +41,7 @@ namespace ProjectsStory.Controllers
                     return View(user);
                 }
 
-                return RedirectToRoute("Login");
+                return RedirectToAction("Login", "Account", user);
             }
             else
             {

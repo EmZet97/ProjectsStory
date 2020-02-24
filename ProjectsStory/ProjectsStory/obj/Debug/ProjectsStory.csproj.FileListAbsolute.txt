@@ -85,3 +85,5 @@ D:\GitHub\ProjectsStory\ProjectsStory\ProjectsStory\obj\Debug\ProjectsStory.cspr
 D:\GitHub\ProjectsStory\ProjectsStory\ProjectsStory\obj\Debug\ProjectsStory.csproj.CopyComplete
 D:\GitHub\ProjectsStory\ProjectsStory\ProjectsStory\obj\Debug\ProjectsStory.dll
 D:\GitHub\ProjectsStory\ProjectsStory\ProjectsStory\obj\Debug\ProjectsStory.pdb
+D:\GitHub\ProjectsStory\ProjectsStory\ProjectsStory\obj\Debug\ProjectsStory.Migrations.init.resources
+D:\GitHub\ProjectsStory\ProjectsStory\ProjectsStory\obj\Debug\ProjectsStory.csproj.GenerateResource.cache

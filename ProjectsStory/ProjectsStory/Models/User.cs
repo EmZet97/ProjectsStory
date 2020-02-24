@@ -35,7 +35,6 @@ namespace ProjectsStory.Models
 
         [Required]
         [MinLength(6)]
-        [MaxLength(50)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
