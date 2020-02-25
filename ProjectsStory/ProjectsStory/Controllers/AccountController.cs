@@ -14,40 +14,44 @@ namespace ProjectsStory.Controllers
         // GET: Account
         public ActionResult Register()
         {
-            User u = new User() { Email = "admin@admin.admin", Name = "Admin", Surname = "Admin", Nick = "Admin" };
-            return View(u);
+            //User u = new User() { Email = "admin@admin.admin", Name = "Admin", Surname = "Admin", Nick = "Admin" };
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(User user)
         {
-            user.Avatar = "Default.png";
-            //Hashing password
-            string pass = Crypto.HashPassword(user.Password);
-            user.Password = pass;
-
-            if(context.Users.FirstOrDefault(v => v.Email.ToLower() == user.Email.ToLower()) == null)
+            if (ModelState.IsValid)
             {
-                context.Users.Add(user);
+                user.Avatar = "Default.png";
+                //Hashing password
+                string pass = Crypto.HashPassword(user.Password);
+                user.Password = pass;
 
-                try
+                if (context.Users.FirstOrDefault(v => v.Email.ToLower() == user.Email.ToLower()) == null)
                 {
-                    context.SaveChanges();
+                    context.Users.Add(user);
+
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        ViewBag.ErrorMessage = "Unknow Error. Please try again";
+                        return View(user);
+                    }
+
+                    return RedirectToAction("Login", "Account", user);
                 }
-                catch(NullReferenceException ex)
+                else
                 {
-                    ViewBag.ErrorMessage = "Unknow Error. Please try again";
+                    ViewBag.ErrorMessage = "Email already exists";
                     return View(user);
                 }
-
-                return RedirectToAction("Login", "Account", user);
             }
-            else
-            {
-                ViewBag.ErrorMessage = "Email already exists";
-                return View(user);
-            }
+            return View(user);
             
         }
 
@@ -90,6 +94,24 @@ namespace ProjectsStory.Controllers
             }
             return View(user);
 
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Login", "Account");
+        }
+
+        private ActionResult CheckSession()
+        {
+            if (string.IsNullOrEmpty(Session["id"] as string))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
     }
 }
