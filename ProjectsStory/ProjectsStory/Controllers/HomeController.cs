@@ -10,21 +10,20 @@ namespace ProjectsStory.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (!IsSessionOpen())
+            {
+                ViewBag.ErrorMessage = "->" + Session["id"] + "<-" + !IsSessionOpen();
+                //return View();
+                return RedirectToAction("Login", "Account");
+            }
+            else
+                return View();
         }
 
-        public ActionResult About()
+        private bool IsSessionOpen()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return Session["id"] != null;
+            
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Web;
 
 namespace ProjectsStory.Models
 {
-    [Table(name: "User")]
+    
     public class User
     {
         [Key]
@@ -39,6 +39,8 @@ namespace ProjectsStory.Models
         public string Password { get; set; }
 
         public string Avatar { get; set; } = "Default.png";
+
+        public List<Project> Projects { get; set; }
 
 
     }

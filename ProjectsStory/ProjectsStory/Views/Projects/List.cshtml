@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ProjectsStory.Models.Project>
+
+@{
+    ViewBag.Title = "ShowProjects";
+}
+
+<h2>ShowProjects</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RepositoryLink)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    foreach (var i in item.ProjectUpdates)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RepositoryLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => i.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })
+        </td>
+    </tr>
+    }
+}
+
+</table>

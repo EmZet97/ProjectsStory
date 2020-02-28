@@ -7,14 +7,24 @@ using System.Web;
 
 namespace ProjectsStory.Models
 {
-    [Table("Project")]
+    
     public class Project
     {
         [Key]
         public int ProjectId { get; set; }
-        public string Name { get; set; }
-        public DateTime PublicationTime { get; set; }
-        public int MyProperty { get; set; }
+
+        [MinLength(3)]
+        [Required]
+        public string Title { get; set; }
+
+        public string RepositoryLink { get; set; }
+
+        // References
+        public int UserId { get; set; }
+        public User User { get; set; }
+
+        public List<ProjectUpdate> ProjectUpdates { get; set; }
+
 
     }
 }

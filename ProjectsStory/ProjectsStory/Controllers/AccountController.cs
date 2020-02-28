@@ -10,7 +10,7 @@ namespace ProjectsStory.Controllers
 {
     public class AccountController : Controller
     {
-        UserContext context = new UserContext();
+        DatabaseContext context = new DatabaseContext();
         // GET: Account
         public ActionResult Register()
         {
@@ -57,16 +57,15 @@ namespace ProjectsStory.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            User user = new User() { Email = "admin@gmail.com", Password = "qwerty" };
+            return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(User user)
         {
-            if (ModelState.IsValid)
-            {
-                User usr = context.Users.Where(a => a.Email.Equals(user.Email)).FirstOrDefault();
+            User usr = context.Users.Where(a => a.Email.Equals(user.Email)).FirstOrDefault();
                 
                 if (usr != null)
                 {
@@ -91,8 +90,7 @@ namespace ProjectsStory.Controllers
                     ViewBag.ErrorMessage = "Incorrect email";
                     return View(user);
                 }
-            }
-            return View(user);
+            
 
         }
 
@@ -102,16 +100,6 @@ namespace ProjectsStory.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        private ActionResult CheckSession()
-        {
-            if (string.IsNullOrEmpty(Session["id"] as string))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            else
-            {
-                return new EmptyResult();
-            }
-        }
+        
     }
 }
