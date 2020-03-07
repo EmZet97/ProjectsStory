@@ -20,18 +20,24 @@ namespace ProjectsStory.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(User user)
+        public ActionResult Register(RegisterModel model)
         {
+            User user = new User() { Email = model.Email, Name = model.Name, Nick = model.Nick, Surname = model.Surname };
             if (ModelState.IsValid)
             {
                 user.Avatar = "Default.png";
                 //Hashing password
-                string pass = Crypto.HashPassword(user.Password);
+                string pass = Crypto.HashPassword(model.Password);
                 user.Password = pass;
 
                 if (context.Users.FirstOrDefault(v => v.Email.ToLower() == user.Email.ToLower()) == null)
                 {
+                    Repository repository = new Repository() { IsPublic = true, Projects = new List<Project>(), ShareUrl = "repo_" + user.Nick, Owner = user };
+                    user.Repository = repository;
+                    repository.Owner = user;
+
                     context.Users.Add(user);
+                    context.Repositories.Add(repository);
 
                     try
                     {
@@ -40,36 +46,37 @@ namespace ProjectsStory.Controllers
                     catch (NullReferenceException ex)
                     {
                         ViewBag.ErrorMessage = "Unknow Error. Please try again";
-                        return View(user);
+                        return View(model);
                     }
 
-                    return RedirectToAction("Login", "Account", user);
+                    LoginModel loginModel = new LoginModel() { Email = model.Email };
+                    return RedirectToAction("Login", "Account", loginModel);
                 }
                 else
                 {
                     ViewBag.ErrorMessage = "Email already exists";
-                    return View(user);
+                    return View(model);
                 }
             }
-            return View(user);
+            return View(model);
             
         }
 
         public ActionResult Login()
         {
-            User user = new User() { Email = "admin@gmail.com", Password = "qwerty" };
-            return View(user);
+            LoginModel model = new LoginModel() { Email = "admin@gmail.com", Password = "qwerty" };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(User user)
+        public ActionResult Login(LoginModel model)
         {
-            User usr = context.Users.Where(a => a.Email.Equals(user.Email)).FirstOrDefault();
+            User usr = context.Users.Where(a => a.Email.Equals(model.Email)).FirstOrDefault();
                 
                 if (usr != null)
                 {
-                    bool passCorrect = Crypto.VerifyHashedPassword(usr.Password, user.Password);
+                    bool passCorrect = Crypto.VerifyHashedPassword(usr.Password, model.Password);
                     if (passCorrect)
                     {
                         Session.Clear();
@@ -82,13 +89,13 @@ namespace ProjectsStory.Controllers
                     else
                     {
                         ViewBag.ErrorMessage = "Incorrect password";
-                        return View(user);
+                        return View(model);
                     }
                 }
                 else
                 {
                     ViewBag.ErrorMessage = "Incorrect email";
-                    return View(user);
+                    return View(model);
                 }
             
 

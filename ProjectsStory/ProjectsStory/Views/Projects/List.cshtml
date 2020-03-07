@@ -2,9 +2,11 @@
 
 @{
     ViewBag.Title = "ShowProjects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>ShowProjects</h2>
+<h2>@ViewBag.ErrorMessage</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,7 +14,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.Email)
+            @Html.DisplayNameFor(model => model.Repository.Owner.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -27,9 +29,13 @@
 {
     foreach (var i in item.ProjectUpdates)
     {
+        if(i == null)
+        {
+            continue;
+        }
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Email)
+            @Html.DisplayFor(modelItem => item.Repository.Owner.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
