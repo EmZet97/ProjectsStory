@@ -39,6 +39,7 @@ namespace ProjectsStory.Controllers
 
             Project project = model.Project;
             ProjectUpdate update = model.Update;
+
             User user = context.Users.Where(u => u.UserId == id).FirstOrDefault();
             if (user == null)
             {
@@ -46,20 +47,13 @@ namespace ProjectsStory.Controllers
             }
 
             Repository repo = user.Repository ;
-            //repo = context.Repositories.Where(r => r.Owner == user).FirstOrDefault();
+
             Project proj_check = repo.Projects.Where(p => p.Title == project.Title).FirstOrDefault();
-
-            //Check if project name already exist
-            //int id = (int)Session["id"];
-            //Project p_check = context.Projects.Where( p => p.Title == (project.Title) && p.UserId == (id) ).FirstOrDefault();
-
             if(proj_check != null)
             {
-                ViewBag.ErrorMessage = "Posiadasz już projekt o tej nazwie";
+                ViewBag.ErrorMessage = "Project name already exists in your repository";
                 return View(model);
             }
-            
-            
 
             project.Repository = user.Repository;
             update.PublicationDate = DateTime.Now;
@@ -67,6 +61,7 @@ namespace ProjectsStory.Controllers
 
             context.Projects.Add(project);
             context.ProjectUpdates.Add(update);
+
             context.SaveChanges();
 
             return RedirectToAction("List", "Projects");
