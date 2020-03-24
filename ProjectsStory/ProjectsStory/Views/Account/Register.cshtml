@@ -2,70 +2,79 @@
 
 @{
     ViewBag.Title = "Register";
-Layout = "~/Views/Shared/_Layout_Empty.cshtml";
+    Layout = "~/Views/Shared/_Layout_Empty.cshtml";
 }
 
-<h2>Register</h2>
+<div id="RegisterPanel" class="col-md-8 col-sm-12 col-md-offset-2">
+    <h1 id="PanelTitle">PORTFOL.IO</h1>
+    <h4 id="PanelSubtitle">Show your creativity</h4>
+    <br/>
+    <br/>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h5 id="ErrorMessage">@ViewBag.ErrorMessage</h5>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p class="input-label">Email:</p>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control data-input" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p class="input-label">Name:</p>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control data-input" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>RegisterModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p class="input-label">Surname:</p>
+                    @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control data-input" } })
+                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p class="input-label">Nick:</p>
+                    @Html.EditorFor(model => model.Nick, new { htmlAttributes = new { @class = "form-control data-input" } })
+                    @Html.ValidationMessageFor(model => model.Nick, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p class="input-label">Password:</p>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control data-input" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p class="input-label">Repeat password:</p>
+                    @Html.EditorFor(model => model.RepeatedPassword, new { htmlAttributes = new { @class = "form-control data-input" } })
+                    @Html.ValidationMessageFor(model => model.RepeatedPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <input type="submit" value="Register" class="btn btn-default" id="ActionButton" />
+                </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nick, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nick, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nick, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-default" />
-            </div>
-        </div>
+    <div id="RedirectActionButton" class="col-sm-offset-4 col-sm-4">
+        @Html.ActionLink("Login", "Login")
     </div>
-}
-
-<div>
-    @Html.ActionLink("Login", "Login")
 </div>
 
 @section Scripts {

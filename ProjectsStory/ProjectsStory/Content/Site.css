@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Gill Sans MT';
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -20,5 +21,86 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    
+}
+
+/*Login panel*/
+#LoginPanel, #RegisterPanel{
+    padding:40px;
+    border: 1px solid #9b9b9b;
+    border-radius: 10px;
+}
+
+#LoginPanel input, #RegisterPanel input{
+    box-shadow: unset;
+}
+
+.data-input {
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    border-bottom: 2px solid #d5d5d5;
+    border-radius: unset;
+    color: #9b9b9b;
+    font-weight: bold;
+    padding:0;
+}
+
+
+#PanelTitle, #PanelSubtitle {
+    text-align: center;
+    color: #707070;
+    font-weight: bold;
+}
+ #PanelSubtitle {
+    color: #707070;
+    opacity: 0.5;
+}
+
+.control-label {
+    color: #707070;
+}
+.input-label {
+    color: #707070;
+    font-weight: bold;
+}
+
+#ActionButton {
+    font-weight: bold;
+    width: 60%;
+    margin-left: 20%;
+    background-color: #9b9b9b;
+    color: white;
+    padding: 11px;
+}
+
+#ActionButton:hover {
+    background-color: white;
+    color: #9b9b9b;
+}
+
+#RedirectActionButton {
+    text-align: center;
+}
+
+#RedirectActionButton a{    
+    font-weight: bold;
+    background-color: white;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    padding: 10px 40px 10px 40px;
+    color: #9b9b9b;
+    
+}
+
+#RedirectActionButton a:hover {
+    text-decoration: none;
+    background-color: #9b9b9b;
+    color: white;
+}
+
+#ErrorMessage {
+    text-align: center;
+    color: #b01a68;
+    font-weight: bold;
 }

@@ -29,5 +29,11 @@ namespace ProjectsStory.Models
         [MinLength(6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required]
+        [MinLength(6)]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Passwords must be equal")]
+        public string RepeatedPassword { get; set; }
     }
 }
