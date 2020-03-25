@@ -26,7 +26,6 @@ namespace ProjectsStory.Models
         [Required]
         public virtual Repository Repository { get; set; }
 
-
         public virtual List<ProjectUpdate> ProjectUpdates { get; set; }
 
 

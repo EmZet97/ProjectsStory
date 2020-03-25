@@ -1,36 +1,35 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model List<ProjectsStory.Models.Project>
+@{
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+
 <p>@ViewBag.ErrorMessage</p>
-<p>@Session["id"]</p>
-<p>@Session["email"]</p>
-<p>@Session["avatar"]</p>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+
+
+
+<div id="ProjectsTree" class="">
+    @foreach (var project in Model)
+    {
+        <div class="single-project col-sm-6 col-sm-offset-3">
+            <div class="single-project-header">
+                <h2 class="projects-title">@project.Title</h2>
+                <p class="projects-date"><i class="fas fa-edit"></i> @project.ProjectUpdates.Last().PublicationDate.Date.ToString("dd/MM/yyyy")</p>
+            </div>
+            <div class="single-project-body">
+                <div class="single-project-description">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                </div>
+                <img src="~/Content/Images/image.png" />
+                
+            </div>
+            <div class="single-project-footer">
+                <a href="#" class="project-button"><i class="fas fa-list-alt"></i> Show project</a>
+                <p class="project-views"><i class="fas fa-eye"></i> 123</p>
+            </div>
+        </div>
+    }
 </div>
