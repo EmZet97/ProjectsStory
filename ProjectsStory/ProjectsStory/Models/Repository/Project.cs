@@ -13,14 +13,23 @@ namespace ProjectsStory.Models
         [Key]
         public int ProjectId { get; set; }
 
-        public string ShareUrl { get; set; }
-        public bool IsPublic { get; set; }
-
         [MinLength(3)]
         [Required]
         public string Title { get; set; }
-        public string RepositoryLink { get; set; }
+
+        //Publicity
+        public string ShareUrl { get; set; }
+        public bool IsPublic { get; set; }
         
+
+        //URLs
+        public string RepositoryLink { get; set; }
+        public string ReadyProductLink { get; set; }
+
+        //Visit counter
+        public int VisitCounter { get; set; } = 0;
+
+        //References
         [ForeignKey("Repository")]
         public int RepositoryId { get; set; }
         [Required]

@@ -107,17 +107,17 @@ textarea {
 
 /*Projects*/
 .single-project {
-    border: 2px solid #9b9b9b;
+    border: 2px solid #414141;
     border-radius: 3px;
     padding: 0;
-    box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.15);
     margin-top: 30px;
 }
 
 .single-project-header {
     border-bottom: 2px solid #9b9b9b;
     padding: 10px;
-    background-color: #e6e6e6;  
+    background-color: #464646;
 }
 
 .projects-title {
@@ -125,7 +125,7 @@ textarea {
     display: inline-flex;
     font-size: 20px;
     font-weight: bold;
-    color: #7a3585;
+    color: #b9b9b9
 }
 
 .projects-date {
@@ -133,7 +133,7 @@ textarea {
     margin: 0 auto;
     display: inline-flex;
     float: right;
-    color: #707070;
+    color: #b9b9b9;
 }
 
 .projects-date i{
@@ -159,10 +159,27 @@ textarea {
 .project-views {
     margin: 0 10px 0 10px;
     text-align: right;
-    color: #707070;
+    color: #9d0366;
     position: absolute;
-    top: 10px;
+    top: -25px;
     right: 0px;
+    animation-name: show_hide;
+    animation-duration: 3s;
+    animation-iteration-count:infinite; 
+}
+
+@keyframes show_hide {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .single-project-footer {

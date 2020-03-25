@@ -4,16 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <p>@ViewBag.ErrorMessage</p>
 
 
-
-
 <div id="ProjectsTree" class="">
+    
     @foreach (var project in Model)
     {
+       
         <div class="single-project col-sm-6 col-sm-offset-3">
             <div class="single-project-header">
                 <h2 class="projects-title">@project.Title</h2>
@@ -23,11 +21,13 @@
                 <div class="single-project-description">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                 </div>
-                <img src="~/Content/Images/image.png" />
+                <img src="~/Content/Images/image1.png" />
                 
             </div>
             <div class="single-project-footer">
-                <a href="#" class="project-button"><i class="fas fa-list-alt"></i> Show project</a>
+                <a href="#" class="project-button"><i class="fas fa-code-branch"></i> Show repository</a>
+                <a href="#" class="project-button"><i class="fas fa-list-alt"></i> Show updates</a>
+                <a href="#" class="project-button"><i class="fas fa-cart-arrow-down"></i> Show product</a>
                 <p class="project-views"><i class="fas fa-eye"></i> 123</p>
             </div>
         </div>

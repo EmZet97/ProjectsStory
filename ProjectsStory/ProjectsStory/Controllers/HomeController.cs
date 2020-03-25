@@ -22,7 +22,7 @@ namespace ProjectsStory.Controllers
             User user = context.Users.Where(u => u.UserId.Equals(id)).FirstOrDefault();
             var projects = user.Repository.Projects.ToList();
             //var updates = new List<ProjectUpdate>();
-
+            //var eagerloading = test.zawodnicies.Include(x => x.druzyny);
             foreach (Project p in projects)
             {
                 p.ProjectUpdates = p.ProjectUpdates;
