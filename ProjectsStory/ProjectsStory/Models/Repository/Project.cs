@@ -13,8 +13,8 @@ namespace ProjectsStory.Models
         [Key]
         public int ProjectId { get; set; }
 
-        [MinLength(3)]
-        [Required]
+        [MinLength(3, ErrorMessage = "At least 3 characters required in title")]
+        [Required( ErrorMessage = "Title required" )]
         public string Title { get; set; }
 
         //Publicity

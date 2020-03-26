@@ -56,6 +56,8 @@ namespace ProjectsStory.Controllers
             }
 
             project.Repository = user.Repository;
+            if (update == null)
+                update = new ProjectUpdate();
             update.PublicationDate = DateTime.Now;
             update.Project = project;
 
@@ -117,6 +119,32 @@ namespace ProjectsStory.Controllers
 
         }
 
+        public ActionResult Delete(int id)
+        {
+            if (!IsSessionOpen())
+                return RedirectToAction("Login", "Account");
+
+            int userid = (int)Session["id"];
+
+            User user = context.Users.Where(u => u.UserId.Equals(userid)).FirstOrDefault();
+            if(user == null)
+                return RedirectToAction("Login", "Account");
+
+            Project project = user.Repository.Projects.Where(p => p.ProjectId.Equals(id)).FirstOrDefault();
+
+            if (user == null)
+                return RedirectToAction("Index", "Home");
+
+            context.ProjectUpdates.RemoveRange(context.ProjectUpdates.Where(u => u.ProjectId.Equals(project.ProjectId)));
+
+            context.Entry(project).State = System.Data.Entity.EntityState.Deleted;
+
+            context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
         public ActionResult List()
         {
             if (!IsSessionOpen())
@@ -155,15 +183,7 @@ namespace ProjectsStory.Controllers
 
         private bool IsSessionOpen()
         {
-            try
-            {
-                int id = (int)Session["id"];                
-            }
-            catch(NullReferenceException ex)
-            {
-                return false;
-            }
-            return true;
+            return Session["id"] != null;
 
         }
     }

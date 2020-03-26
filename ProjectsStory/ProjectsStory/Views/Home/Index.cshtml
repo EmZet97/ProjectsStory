@@ -13,22 +13,23 @@
     {
        
         <div class="single-project col-sm-6 col-sm-offset-3">
+            <a href="Projects/Delete/@project.ProjectId" class="project-delete"><i class="fas fa-times-circle"></i></a>
             <div class="single-project-header">
                 <h2 class="projects-title">@project.Title</h2>
                 <p class="projects-date"><i class="fas fa-edit"></i> @project.ProjectUpdates.Last().PublicationDate.Date.ToString("dd/MM/yyyy")</p>
             </div>
             <div class="single-project-body">
                 <div class="single-project-description">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    @project.ProjectUpdates.First().Description    
                 </div>
                 <img src="~/Content/Images/image1.png" />
                 
             </div>
             <div class="single-project-footer">
-                <a href="#" class="project-button"><i class="fas fa-code-branch"></i> Show repository</a>
-                <a href="#" class="project-button"><i class="fas fa-list-alt"></i> Show updates</a>
-                <a href="#" class="project-button"><i class="fas fa-cart-arrow-down"></i> Show product</a>
-                <p class="project-views"><i class="fas fa-eye"></i> 123</p>
+                <a href="@project.RepositoryLink" class="project-button"><i class="fas fa-code-branch"></i> Show repository</a>
+                <a href="/Edit/@project.ProjectId" class="project-button"><i class="fas fa-list-alt"></i> Edit/Update</a>
+                <a href="@project.ReadyProductLink" class="project-button"><i class="fas fa-cart-arrow-down"></i> Show product</a>
+                <p class="project-views"><i class="fas fa-eye"></i> @project.VisitCounter</p>
             </div>
         </div>
     }
