@@ -2,6 +2,9 @@
 # compiled source #
 ###################
 *.com
+*.png
+*.PNG
+*.jpg
 *.class
 *.dll
 *.exe

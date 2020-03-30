@@ -160,6 +160,13 @@ color: black;
 .single-project-description{
     margin: 20px 10px 30px 10px;
     border-bottom: 1px solid #d5d5d5;
+    overflow:hidden;
+}
+
+
+.single-project-body {
+    overflow: hidden;
+    max-height: 500px;
 }
 
 .single-project-body img {
@@ -278,7 +285,6 @@ color: black;
     font-weight: 700;
     color: white;
     display: inline-block;
-    padding: 30px;
     box-shadow: #b01a68;
     animation-name: shadow-pulse;
     animation-duration: 2s;
@@ -291,6 +297,8 @@ color: black;
 
 .inputfile + label {
 	cursor: pointer; /* "hand" cursor */
+    width: 100%;    
+    height: 300px;
 }
 
 #ImageLoaderImg{
@@ -301,6 +309,7 @@ color: black;
 #imgLoaderDiv{
     text-align: center;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .project-footer-input {

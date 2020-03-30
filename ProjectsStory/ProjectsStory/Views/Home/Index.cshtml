@@ -20,10 +20,10 @@
             </div>
             <div class="single-project-body">
                 <div class="single-project-description">
-                    @project.ProjectUpdates.First().Description    
+                    @project.ProjectUpdates.First().Description
                 </div>
-                <img src="~/Content/Images/image1.png" />
-                
+                <img src="@project.ProjectUpdates.Last().ImageUrl" />
+
             </div>
             <div class="single-project-footer">
                 <a href="@project.RepositoryLink" class="project-button"><i class="fas fa-code-branch"></i> Show repository</a>

@@ -30,7 +30,7 @@ namespace ProjectsStory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ProjectModel model)
+        public ActionResult Create(ProjectModel model, HttpPostedFileBase file)
         {
             if (!IsSessionOpen())
                 return RedirectToAction("Login", "Account");
@@ -60,6 +60,27 @@ namespace ProjectsStory.Controllers
                 update = new ProjectUpdate();
             update.PublicationDate = DateTime.Now;
             update.Project = project;
+
+            if (file != null)
+            {
+                int updates = 1;
+                string fileName = "update" + updates + "_" + file.FileName;
+                //Check if path for file exists
+                string dirPath = "~/Content/Images/Projects/user" + user.UserId + "/project_" + project.Title;
+
+                bool exists = Directory.Exists(Server.MapPath(dirPath));
+                if (!exists)
+                    Directory.CreateDirectory(Server.MapPath(dirPath));
+
+                string path = Path.Combine(Server.MapPath(dirPath), fileName);
+
+                // file is uploaded
+                file.SaveAs(path);
+                dirPath = "/Content/Images/Projects/user" + user.UserId + "/project_" + project.Title;
+
+                update.ImageUrl = dirPath + "/" + fileName;
+            }
+            
 
             context.Projects.Add(project);
             context.ProjectUpdates.Add(update);
@@ -135,7 +156,11 @@ namespace ProjectsStory.Controllers
             if (user == null)
                 return RedirectToAction("Index", "Home");
 
+            string dirPath = "~/Content/Images/Projects/user" + user.UserId + "/project_" + project.Title;
+            DeleteDirectory(dirPath);
+
             context.ProjectUpdates.RemoveRange(context.ProjectUpdates.Where(u => u.ProjectId.Equals(project.ProjectId)));
+            
 
             context.Entry(project).State = System.Data.Entity.EntityState.Deleted;
 
@@ -186,5 +211,33 @@ namespace ProjectsStory.Controllers
             return Session["id"] != null;
 
         }
+
+
+
+        private void DeleteDirectory(string folderPath)
+        {
+            string path = Server.MapPath(folderPath);
+
+            try
+            {
+
+                string[] files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+
+                //Delete files
+                foreach (string file in files)
+                {
+                    System.IO.File.Delete(file);
+                }
+                //then delete folder
+                Directory.Delete(path);
+            }
+            catch(Exception e)
+            {
+                return;
+            }
+
+        }
+
+
     }
 }

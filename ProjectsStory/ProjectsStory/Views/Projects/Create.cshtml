@@ -7,51 +7,51 @@
 }
 
 
-<div id="" class="">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <h5 id="ErrorMessage">@ViewBag.ErrorMessage</h5>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="single-project col-md-8 col-md-offset-2">
-            <div class="single-project-header">
-                <div class="projects-title">
-                    @Html.EditorFor(model => model.Project.Title, new { htmlAttributes = new { @class = "form-control project-title-input", placeholder = "Project title" } })
+    <div id="" class="">
+        @using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <h5 id="ErrorMessage">@ViewBag.ErrorMessage</h5>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="single-project col-md-8 col-md-offset-2">
+                <div class="single-project-header">
+                    <div class="projects-title">
+                        @Html.EditorFor(model => model.Project.Title, new { htmlAttributes = new { @class = "form-control project-title-input", placeholder = "Project title" } })
+                    </div>
+                    <p class="projects-date"><i class="fas fa-edit"></i> @DateTime.Now.ToString("dd/MM/yyyy")</p>
                 </div>
-                <p class="projects-date"><i class="fas fa-edit"></i> @DateTime.Now.ToString("dd/MM/yyyy")</p>
-            </div>
-            <div class="single-project-body">
-                <div class="single-project-description">
-                    @Html.TextAreaFor(model => model.Update.Description, htmlAttributes: new { @placeholder = "Enter project description here", @class = "form-control project-description-input" })
+                <div class="single-project-body">
+                    <div class="single-project-description">
+                        @Html.TextAreaFor(model => model.Update.Description, htmlAttributes: new { @placeholder = "Enter project description here", @class = "form-control project-description-input" })
+                    </div>
+                    <div id="imgLoaderDiv">                        
+                        <input type="file" name="file" id="file" class="inputfile" accept="image/*" onchange="LoadPhoto()" />
+                        <label for="file"><img src="" id="loadedImage" /></label>
+                    </div>
                 </div>
-                <div id="imgLoaderDiv">
-                    <input type="file" name="file" id="file" class="inputfile" accept="image/*" />
-                    <label for="file"><i id="ImageLoaderImg" class="fas fa-image"></i></label>
+                <div class="single-project-footer">
+                    <div class="project-footer-input"><i class="fas fa-code-branch"></i>@Html.EditorFor(model => model.Project.RepositoryLink, new { htmlAttributes = new { @class = "form-control", placeholder = "Repository URL" } })</div>
+                    <a href="#" class="project-button not-active"><i class="fas fa-list-alt"></i> Show updates</a>
+                    <div class="project-footer-input"><i class="fas fa-cart-arrow-down"></i>@Html.EditorFor(model => model.Project.ReadyProductLink, new { htmlAttributes = new { @class = "form-control", placeholder = "Ready product URL" } })</div>
+                    <p class="project-views"><i class="fas fa-eye"></i> 0</p>
                 </div>
             </div>
-            <div class="single-project-footer">
-                <div class="project-footer-input"><i class="fas fa-code-branch"></i>@Html.EditorFor(model => model.Project.RepositoryLink, new { htmlAttributes = new { @class = "form-control", placeholder = "Repository URL" } })</div>
-                <a href="#" class="project-button not-active"><i class="fas fa-list-alt"></i> Show updates</a>
-                <div class="project-footer-input"><i class="fas fa-cart-arrow-down"></i>@Html.EditorFor(model => model.Project.ReadyProductLink, new { htmlAttributes = new { @class = "form-control", placeholder = "Ready product URL" } })</div>
-                <p class="project-views"><i class="fas fa-eye"></i> 0</p>
+
+            <div id="errors" class="col-md-8 col-md-offset-2">
+                @Html.ValidationMessageFor(model => model.Project.Title, "", new { @class = "text-danger inputs-validation-error" })
+                @Html.ValidationMessageFor(model => model.Update.Description, "", new { @class = "text-danger inputs-validation-error" })
+                @Html.ValidationMessageFor(model => model.Project.RepositoryLink, "", new { @class = "text-danger inputs-validation-error" })
+                @Html.ValidationMessageFor(model => model.Project.ReadyProductLink, "", new { @class = "text-danger inputs-validation-error" })
             </div>
-        </div>
 
-        <div id="errors" class="col-md-8 col-md-offset-2">
-            @Html.ValidationMessageFor(model => model.Project.Title, "", new { @class = "text-danger inputs-validation-error" })
-            @Html.ValidationMessageFor(model => model.Update.Description, "", new { @class = "text-danger inputs-validation-error" })
-            @Html.ValidationMessageFor(model => model.Project.RepositoryLink, "", new { @class = "text-danger inputs-validation-error" })
-            @Html.ValidationMessageFor(model => model.Project.ReadyProductLink, "", new { @class = "text-danger inputs-validation-error" })
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-4" >
-                <input type="submit" value="Create" class="btn btn-default" id="ActionButton"/>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-4">
+                    <input type="submit" value="Create" class="btn btn-default" id="ActionButton" />
+                </div>
             </div>
-        </div>
 
-    }
-</div>
+        }
+    </div>
 
 
     @section Scripts {
